@@ -16,7 +16,7 @@ public class ChatMessage {
         timeStamp = t;
     }
     public String toString() {
-        return author+": "+message+"   "+timeStamp+"   "+id;
+        return author+": "+message+"   "+timeStamp+"("+timeStamp.getTime()+ ")    "+id;
     }
     public String getAuthor () {
         return author;
