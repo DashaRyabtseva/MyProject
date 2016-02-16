@@ -2,9 +2,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Scanner;
 
-/**
- * Created by Dasha on 13.02.2016.
- */
 public class Demo {
     public static void main(String[] args)  {
         try {
@@ -42,7 +39,7 @@ public class Demo {
                         break;
                     }
                     case 3: {
-                        ms.uploadHistory("D:\\Универ 4 сем\\Chat\\history.txt");
+                        ms.uploadHistory("history.txt");
                         break;
                     }
                     case 4: {
