@@ -1,5 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +16,7 @@ public class MessagesContainer extends ArrayList<ChatMessage> {
     public MessagesContainer() throws IOException {
         super();
         fw = new FileWriter("logfile.txt");
-       // fw = new FileWriter("D:\\Универ 4 сем\\Chat\\logfile.txt", true);
+        // fw = new FileWriter("D:\\Универ 4 сем\\Chat\\logfile.txt", true);
     }
 
     public MessagesContainer(ArrayList<ChatMessage> cm) {
@@ -39,7 +41,7 @@ public class MessagesContainer extends ArrayList<ChatMessage> {
                 .create();
         String json = gson.toJson(this);
         FileWriter forHistiory = new FileWriter("history.txt");
-       // FileWriter forHistiory = new FileWriter("history"+new Date()+".txt");
+        // FileWriter forHistiory = new FileWriter("history"+new Date()+".txt");
         forHistiory.write(json);
         forHistiory.close();
         fw.write(new Date() + ": History saved.\n");
@@ -51,12 +53,12 @@ public class MessagesContainer extends ArrayList<ChatMessage> {
         return new Gson().fromJson(str, MessagesContainer.class);
     }
 
-    public void deteteMessageById(int id) throws IOException {
+    public void deteteMessageById(String id) throws IOException {
         Iterator<ChatMessage> it = this.iterator();
         int cul = 0;
         while (it.hasNext()) {
             ChatMessage wow = it.next();
-            if (wow.getId() == id) {
+            if (wow.getId().toString().equals(id)) {
                 this.remove(wow);
                 cul++;
                 break;
@@ -71,9 +73,9 @@ public class MessagesContainer extends ArrayList<ChatMessage> {
     public ChatMessage newMessage(String userName) throws IOException {
         Scanner in = new Scanner(System.in);
         Date now = new Date();
-        Random newId = new Random();
+        UUID newId = UUID.randomUUID();
         System.out.print("Enter message: ");
-        ChatMessage newMes = new ChatMessage(newId.nextInt(2147483647), in.nextLine(), userName, now);
+        ChatMessage newMes = new ChatMessage(newId, in.nextLine(), userName, now);
         add(newMes);
         if (newMes.getMessage().length() > 140)
             fw.write(new Date() + ": Message this id " + newMes.getId() + " is too long\n");
@@ -129,5 +131,27 @@ public class MessagesContainer extends ArrayList<ChatMessage> {
         }
         fw.write(new Date() + ": Search by time from '" + begin + "' before '" + end + "'. Found " + ret.size() + " message/s." + "\n");
         return new MessagesContainer(ret);
+    }
+
+    public void forSearchByTime(Scanner cs) throws IOException {
+        cs.nextLine();
+        int check = 1;
+        while (check > 0) {
+            try {
+                System.out.print("Enter start in formart MM.dd.yyyy HH:mm:ss: ");
+                String g = cs.nextLine();
+                SimpleDateFormat sdf = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss");
+                sdf.setLenient(false);
+                Date start = sdf.parse(g);
+                System.out.print("Enter end in formart MM.dd.yyyy HH:mm:ss: ");
+                String h = cs.nextLine();
+                Date end = sdf.parse(h);
+                System.out.println(searchByTime(start, end).toString());
+                check = 0;
+            } catch (ParseException e) {
+                System.out.println("Wrong date. Try again");
+                fw.write(new Date() + ": Incorrect formart of date.\n");
+            }
+        }
     }
 }

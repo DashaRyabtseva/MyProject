@@ -1,13 +1,14 @@
 import java.util.Date;
+import java.util.UUID;
 
 
 public class ChatMessage {
-    private int id;
+    private UUID id;
     private String message;
     private String author;
     private Date timeStamp;
 
-    public ChatMessage(int i, String m, String a, Date t) {
+    public ChatMessage(UUID i, String m, String a, Date t) {
         id = i;
         message = m;
         author = a;
@@ -15,7 +16,7 @@ public class ChatMessage {
     }
 
     public String toString() {
-        return author + ": " + message + "   " + timeStamp + "(" + timeStamp.getTime() + ")    " + id;
+        return author + ": " + message + "   " + timeStamp + "    " + id;
     }
 
     public String getAuthor() {
@@ -32,7 +33,7 @@ public class ChatMessage {
         return timeStamp;
     }
 
-    public int getId() {
+    public UUID getId() {
 
         return id;
     }

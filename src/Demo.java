@@ -1,9 +1,11 @@
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
 public class Demo {
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         try {
             MessagesContainer ms = new MessagesContainer();
             Scanner cs = new Scanner(System.in);
@@ -43,35 +45,31 @@ public class Demo {
                         break;
                     }
                     case 4: {
-                        System.out.println (ms.toString());
+                        System.out.println(ms.toString());
                         break;
                     }
                     case 5: {
-                        System.out.print ("Enter id: ");
-                        ms.deteteMessageById(cs.nextInt());
+                        System.out.print("Enter id: ");
+                        ms.deteteMessageById(cs.nextLine());
                         break;
                     }
                     case 6: {
-                        System.out.print ("Enter autor: ");
-                        System.out.println (ms.searchByAuthor(cs.next()).toString());
+                        System.out.print("Enter autor: ");
+                        System.out.println(ms.searchByAuthor(cs.next()).toString());
                         break;
                     }
                     case 7: {
-                        System.out.print ("Enter word: ");
-                        System.out.println (ms.searchByWord(cs.next()).toString());
+                        System.out.print("Enter word: ");
+                        System.out.println(ms.searchByWord(cs.next()).toString());
                         break;
                     }
                     case 8: {
-                        System.out.print ("Enter regular ex: ");
-                        System.out.println (ms.searchByRegularEx(cs.next()).toString());
+                        System.out.print("Enter regular ex: ");
+                        System.out.println(ms.searchByRegularEx(cs.next()).toString());
                         break;
                     }
                     case 9: {
-                        System.out.print ("Enter start in milliseconds: ");
-                        Date start = new Date (cs.nextLong());
-                        System.out.print ("Enter end in milliseconds: ");
-                        Date end = new Date (cs.nextLong());
-                        System.out.println (ms.searchByTime(start, end).toString());
+                        ms.forSearchByTime(cs);
                         break;
                     }
                     case 10: {
@@ -79,15 +77,16 @@ public class Demo {
                         break;
                     }
                     default: {
-                        System.out.println ("Enter number from 1 to 10!");
+                        System.out.println("Enter number from 1 to 10!");
                     }
                 }
             }
-                ms.getFW().close();
-        }
-        catch (IOException e) {
-            System.out.println ("File not found!");
+            ms.getFW().close();
+        } catch (IOException e) {
+            System.out.println("File not found!");
         }
         System.out.printf("well well");
     }
+
+
 }
