@@ -135,19 +135,16 @@ public class MessagesContainer extends ArrayList<ChatMessage> {
 
     public void forSearchByTime(Scanner cs) throws IOException {
         cs.nextLine();
-        int check = 1;
-        while (check > 0) {
+        while (true) {
             try {
                 System.out.print("Enter start in formart MM.dd.yyyy HH:mm:ss: ");
-                String g = cs.nextLine();
                 SimpleDateFormat sdf = new SimpleDateFormat("MM.dd.yyyy HH:mm:ss");
                 sdf.setLenient(false);
-                Date start = sdf.parse(g);
+                Date start = sdf.parse(cs.nextLine());
                 System.out.print("Enter end in formart MM.dd.yyyy HH:mm:ss: ");
-                String h = cs.nextLine();
-                Date end = sdf.parse(h);
+                Date end = sdf.parse(cs.nextLine());
                 System.out.println(searchByTime(start, end).toString());
-                check = 0;
+                break;
             } catch (ParseException e) {
                 System.out.println("Wrong date. Try again");
                 fw.write(new Date() + ": Incorrect formart of date.\n");
