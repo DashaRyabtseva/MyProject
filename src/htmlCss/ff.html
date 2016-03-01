@@ -7,42 +7,64 @@
     <link rel="icon" href="ico.ico" type="image/x-icon">
 </head>
 <body>
-    <ul class="menu">
-        <li id="title"><a href="#"><h1 > BugChat</h1></a>
-        <ul class="submenu">
-            <li><a href="#">Log On</a></li>
-            <li><a href="#">Menu 2</a></li>
-            <li><a href="#">Menu 3</a></li>
-        </ul>
-    </li>
-    </ul>
-    <table id="hystory">
-        <tr class="message">
-            <td class="username"> Dasha: </td>
-            <td class="text_message">Hello</td>
-            <td class="time_message">17:45:22</td>
-            <td class="delete_message"><a href="#"><img src="delete.ico" /></a></td>
-            <td class="edit_message"><a href="#"><img src="edit.ico" /></a></td>
+    <header class="title">
+        <span>
+            <h1 > BugChat</h1>
+            <h3 id="server_problem">Problem on server</h3>
+        </span>
+    </header>
 
-        </tr>
-        <tr class="message">
-            <td class="username"> Olya: </td>
-            <td class="text_message">Hi</td>
-            <td class="time_message">17:47:52</td>
-            <td class="delete_message"><a href="#"><img src="delete.ico" /></a></td>
-            <td class="edit_message"><a href="#"><img src="edit.ico" /></a></td>
 
-        </tr>
-        <tr class="deleted_message">
-            <td class="server_message" colspan="4"> Message deleted </td>
-        </tr>
-    </table>
+    <form class="enter_name" action="" method="post">
+        <p class="enter_name_text">Enter a new name</p>
+        <input type="text" class="enter_name_text_box"/>
+        <input type="submit" value="Enter" class="button">
+    </form>
+<div id="history_box_and_footer">
+    <div class="history">
+        <div class="all_my_message">
+            <div class="username"> Dasha </div>
+            <div class="my_message">
+                <div class="text_message">Hello</div>
+                <span>
+                    <a href="#"><img src="edit.ico" /></a>
+                    <a href="#"><img src="delete.ico" /></a>
+                    <span class="server_message"></span>
+                </span>
+            </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <div class="all_user_message">
+            <div class="username"> Katya </div>
+            <div class="user_message">
+                <div class="text_message">Hi</div>
+                <span class="server_message">Edited</span>
+            </div>
+        </div>
+        <div class="all_my_message">
+            <div class="username"> Dasha </div>
+            <div class="my_message">
+                <div class="text_message"></div>
+                <span>
+                    <a href="#"><img src="edit.ico" /></a>
+                    <a href="#"><img src="delete.ico" /></a>
+                    <span class="server_message">Deleted</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
     <form id="box_new_message" action="" method="post">
         <textarea id="new_message" name="new_message">New message</textarea>
-        <button class="button" id="button_sent">Sent</button>
+        <div id="button_sent"><button class="button" >Sent</button><div>
     </form>
+
 <footer id="footer">
     Dasha Ryabtseva, 2 course, 1 group, 2016
 </footer>
+</div>
 </body>
 </html>

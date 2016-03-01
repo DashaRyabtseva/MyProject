@@ -2,34 +2,56 @@ body {
     background-image: url("P5123052.jpg");
     background-position: center;
     background-repeat: no-repeat;
-    overflow:  hidden;
-    margin: 0;
+    font-family: Tahoma;
+    overflow-x: hidden;
+    margin: 0 auto;
     padding: 0;
 }
-#title {
+.title {
+    display: inline;
     position: relative;
-    top: 0px;
-    left: 40px;
+    left: 5%;
     font-family: "Century Gothic";
     color: #ffffff;
-   /* background-color: lightblue;*/
 }
-#hystory {
-    font-family: Tahoma;
+#server_problem {
+    color: #fa7381;
+}
+#history_box_and_footer {
     margin: 0 auto;
-    padding: 20px 20px 20px 20px;
-    margin-bottom: 10px;
-    vertical-align: top;
-    width: 700px;
-    height: 490px;
-    border-width: 2px;
-    border-color: darkgrey;
-    background-color: hsla(0,100%,100%,0.7);
+    min-width: 50%;
+    max-width: 60%;
+    height: 100%;
+}
+.enter_name {
+    margin: 0 auto;
+    width: 50%;
+    height: 10%;
+    padding-bottom: 5px;
+}
+.enter_name_text {
+    font-size: 120%;
+    font-family: "Century Gothic";
+    color: white;
+}
+.enter_name_text_box {
+    font-size: 120%;
+}
 
+.history {
+   /* min-width: 50%;
+    max-width: 60%;*/
+    width: 100%;
+    height: 395px;
+    margin: 0 auto;
+    padding: 3% 3% 3% 3%;
+    margin-bottom: 1.5%;
+    vertical-align: top;
+    border-width: 3px;
+    background-color: hsla(0,100%,100%,0.7);
+    overflow-y: scroll;
 }
 .button {
-    width: 35px;
-    height: 35px;
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#66c716),to(#b8ff2d));
     border-width: 0px;
     border-radius: 8px;
@@ -45,100 +67,43 @@ body {
     color: white;
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#81af1d), to(#2d5910))
 }
-
-ul {
-    display: block;
-    margin: 0;
-    padding: 0;
-    list-style: none;
+.all_my_message {
+    float: right;
+    clear: left;
 }
-ul:after {
-    display: block;
-    content: ' ';
-    clear: both;
-    float: none;
-}
-ul.menu > li {
+.all_user_message {
     float: left;
-}
-ul.menu > li > a {
-    display: block;
-    padding: 20px;
-    color: white;
-    text-decoration: none;
-}
-ul.menu > li > a:hover {
-
-}
-ul.submenu {
-    display: none;
-    position: absolute;
-   /* bottom: 35px;*/
-   /* z-index: 1;*/
-}
-ul.submenu > li {
-    display: block;
-}
-ul.submenu > li > a {
-    display: block;
-    padding: 10px;
-    color: white;
-    background-color: hsla(0,100%,100%,0.7);
-    color: #2d5910;
-    text-decoration: none;
-}
-ul.submenu > li > a:hover {
-    text-decoration: underline;
-}
-ul.menu > li:hover > ul.submenu {
-    display: block;
-    top: 90px;
-}
-table#history {
-    border: 0;
-    border-collapse: collapse;
-}
-td {
-    padding: 0;
+    clear:right;
 }
 .username {
     color: #2d5910;
-    width: 15%;
     vertical-align: top;
+    margin-left: 8px;
+    margin-bottom: 3px;
+}
+.my_message {
+    background-color: #b8ff2d;
+    border-radius: 7px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.user_message {
+    background-color: #81af1d;
+    border-radius: 7px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 .text_message {
-    width: 63%;
-    vertical-align: top;
+    margin: 8px 5px 10px 5px;
 }
 .time_message {
-    width: 12%;
     vertical-align: top;
 }
 .delete_message {
-    visibility: hidden;
     width: 5%;
-    width: 5px;
-    height: 5px;
-    vertical-align: top;
 }
 .edit_message {
-    visibility: hidden;
-    width: 5%;
-    width: 5px;
     height: 5px;
-    vertical-align: top;
-}
-.edit_message:hover {
-    visibility: visible;
-}
-.delete_message:hover {
-    visibility: visible;
-}
-tr:hover > td.edit_message {
-    visibility: visible;
-}
-tr:hover > td.delete_message {
-    visibility: visible;
 }
 .server_message {
     color: #0c76be;
@@ -146,27 +111,27 @@ tr:hover > td.delete_message {
 
 #box_new_message {
     margin: 0 auto;
-    width: 700px;
+    width: 100%;
     height: 50px;
 }
 #new_message {
     resize: none;
-    width: 570px;
+    width: 100%;
     height: 45px;
     padding: 5px 10px 5px 10px;
-    margin-right: 20px;
+    overflow-y: scroll;
+   /* margin-right: 20px;*/
     font-family: Tahoma;
 }
-#button_sent {
+/*#button_sent {
     position: relative;
     bottom: 24px;
     width: 80px;
     height: 40px;
-}
+}*/
 footer {
-    position: relative;
-    top: 80px;
-    left: 600px;
+    margin: 0 auto;
+    width: 100%;
     font-family: "Century Gothic";
     color: #ffffff;
 }
