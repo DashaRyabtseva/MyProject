@@ -5,6 +5,7 @@
     <title>BugChat</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="icon" href="ico.ico" type="image/x-icon">
+    <script src="js.js"></script>
 </head>
 <body>
     <header class="title">
@@ -27,16 +28,13 @@
             <div class="my_message">
                 <div class="text_message">Hello</div>
                 <span>
-                    <a href="#"><img src="edit.ico" /></a>
-                    <a href="#"><img src="delete.ico" /></a>
+                    <a href="#" class="edit_message"><img src="edit.ico" /></a>
+                    <a href="#" class="delete_message"><img src="delete.ico" /></a>
                     <span class="server_message"></span>
                 </span>
             </div>
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
+
         <div class="all_user_message">
             <div class="username"> Katya </div>
             <div class="user_message">
@@ -47,10 +45,7 @@
         <div class="all_my_message">
             <div class="username"> Dasha </div>
             <div class="my_message">
-                <div class="text_message"></div>
-                <span>
-                    <a href="#"><img src="edit.ico" /></a>
-                    <a href="#"><img src="delete.ico" /></a>
+                <span class="functions_message">
                     <span class="server_message">Deleted</span>
                 </span>
             </div>

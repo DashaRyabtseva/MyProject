@@ -69,13 +69,14 @@ body {
 }
 .all_my_message {
     float: right;
-    clear: left;
+    clear: both;
 }
 .all_user_message {
     float: left;
     clear:right;
 }
 .username {
+
     color: #2d5910;
     vertical-align: top;
     margin-left: 8px;
