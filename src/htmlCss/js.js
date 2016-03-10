@@ -2,13 +2,21 @@
  * Created by Dasha on 08.03.2016.
  */
 window.onload = function () {
-    var set_button = document.getElementById('button_sent');
-    set_button.onclick = add_new_message;
+    var editMessage = false;
+    var editLink;
+    var username = 'Dasha';
+
+    var sent_button = document.getElementById('button_sent');
+    sent_button.onclick = process_sent;
+
+    function process_sent() {
+        editMessage ? edit_after_sent() : add_new_message();
+    }
 
     function add_new_message() {
         var text_message = document.getElementById('new_message').value;
         var messageTemplate = '<div class="all_my_message">' +
-            '<div class="username"> Dasha </div>' +
+            '<div class="username">' + username + '</div>' +
             '<div class="my_message">' +
             '<div class="text_message"></div>' +
             '<span>' +
@@ -22,7 +30,11 @@ window.onload = function () {
         div[0].insertAdjacentHTML('beforeend', messageTemplate);
         var mess = document.getElementsByClassName('text_message');
         mess[mess.length - 1].innerHTML = text_message;
-        return false;
+        document.getElementById('new_message').value = '';
+        var edit_but = document.getElementsByClassName('edit_message');
+        edit_but[edit_but.length -1].onclick = edit_message;
+        var delete_but = document.getElementsByClassName('delete_message');
+        delete_but[delete_but.length -1].onclick = delete_message;
     }
 
 
@@ -41,10 +53,34 @@ window.onload = function () {
     }
 
     var edit_but = document.getElementsByClassName('edit_message');
-    edit_but.onclick = edit_message;
+    for (var i = 0; i < edit_but.length; i++) {
+        edit_but[i].onclick = edit_message;
+    }
 
-   /* function edit_message () { // в процессе
-        var spanh = this.parentElement();
-        var t_mh = spanh.previousSibling;
-    }*/
+   function edit_message () { // в процессе
+       editLink = this;
+       editMessage = true;
+       var spanh = this.parentElement;
+       var t_mh = spanh.previousElementSibling;
+       var text_box = document.getElementById('new_message');
+       text_box.value = t_mh.innerHTML;
+    }
+
+    function edit_after_sent () {
+        editLink.nextElementSibling.nextElementSibling.innerHTML = 'Edited';
+        var spanh = editLink.parentElement;
+        var t_mh = spanh.previousElementSibling;
+        var text_box = document.getElementById('new_message');
+        t_mh.innerHTML = text_box.value;
+        document.getElementById('new_message').value = '';
+        editMessage = false;
+    }
+
+    var enter_button = document.getElementById('enter_button');
+    enter_button.onclick = enter_new_name;
+
+    function  enter_new_name () {
+        username = this.previousElementSibling.value;
+        this.previousElementSibling.value = '';
+    }
 }

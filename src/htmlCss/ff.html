@@ -16,10 +16,10 @@
     </header>
 
 
-    <form class="enter_name" action="" method="post">
+    <form class="enter_name" onsubmit="event.preventDefault();">
         <p class="enter_name_text">Enter a new name</p>
         <input type="text" class="enter_name_text_box"/>
-        <input type="submit" value="Enter" class="button">
+        <button class="button" id="enter_button">Enter</button>
     </form>
 <div id="history_box_and_footer">
     <div class="history">
@@ -52,8 +52,8 @@
         </div>
     </div>
 
-    <form id="box_new_message" action="" method="post">
-        <textarea id="new_message" name="new_message">New message</textarea>
+    <form id="box_new_message" onsubmit="event.preventDefault();">
+        <textarea id="new_message">New message</textarea>
         <div id="button_sent"><button class="button" >Sent</button><div>
     </form>
 
