@@ -14,7 +14,7 @@ import java.util.regex.PatternSyntaxException;
 
 public class MessagesSearcher {
 
-    public MessagesContainer searchByAuthor(ArrayList<ChatMessage> cm, FileWriter forLog, String needAuthor) {
+    public ArrayList<ChatMessage> searchByAuthor(ArrayList<ChatMessage> cm, FileWriter forLog, String needAuthor) {
         Iterator<ChatMessage> it = cm.iterator();
         ArrayList<ChatMessage> ret = new ArrayList<>();
         while (it.hasNext()) {
@@ -28,10 +28,10 @@ public class MessagesSearcher {
         } catch (IOException e) {
             System.out.println (new Date() + ": Trouble with write file");
         }
-        return new MessagesContainer(ret);
+        return ret;
     }
 
-    public MessagesContainer searchByWord(ArrayList<ChatMessage> cm, FileWriter forLog,String needWord) {
+    public ArrayList<ChatMessage> searchByWord(ArrayList<ChatMessage> cm, FileWriter forLog,String needWord) {
         Iterator<ChatMessage> it = cm.iterator();
         ArrayList<ChatMessage> ret = new ArrayList<>();
         while (it.hasNext()) {
@@ -44,10 +44,10 @@ public class MessagesSearcher {
         } catch (IOException e) {
             System.out.println (new Date() + ": Trouble with write file");
         }
-        return new MessagesContainer(ret);
+        return ret;
     }
 
-    public MessagesContainer searchByRegularEx(ArrayList<ChatMessage> cm, FileWriter forLog,String needRegularEx) {
+    public ArrayList<ChatMessage> searchByRegularEx(ArrayList<ChatMessage> cm, FileWriter forLog,String needRegularEx) {
         Iterator<ChatMessage> it = cm.iterator();
         ArrayList<ChatMessage> ret = new ArrayList<>();
         Pattern p;
@@ -64,10 +64,10 @@ public class MessagesSearcher {
             System.out.println("Wrong regular ex");
             try {
                 forLog.write(new Date() + ": Search by regular ex '" + needRegularEx + "'. Wrong ex." + "\n");
-                return new MessagesContainer(ret);
+                return ret;
             } catch (IOException e1) {
                 System.out.println (new Date() + ": Trouble with write file");
-                return new MessagesContainer(ret);
+                return ret;
             }
         }
         try {
@@ -75,10 +75,10 @@ public class MessagesSearcher {
         } catch (IOException e2) {
             System.out.println(new Date() + ": Trouble with write file");
         }
-        return new MessagesContainer(ret);
+        return ret;
     }
 
-    public MessagesContainer searchByTime(ArrayList<ChatMessage> cm, FileWriter forLog,Date begin, Date end) {
+    public ArrayList<ChatMessage> forSearchByTime(ArrayList<ChatMessage> cm, FileWriter forLog,Date begin, Date end) {
         Iterator<ChatMessage> it = cm.iterator();
         ArrayList<ChatMessage> ret = new ArrayList<>();
         while (it.hasNext()) {
@@ -91,10 +91,10 @@ public class MessagesSearcher {
         } catch (IOException e) {
             System.out.println (new Date() + ": Trouble with write file");
         }
-        return new MessagesContainer(ret);
+        return ret;
     }
 
-    public void forSearchByTime(ArrayList<ChatMessage> cm, FileWriter forLog,Scanner cs) {
+    public void searchByTime(ArrayList<ChatMessage> cm, FileWriter forLog,Scanner cs) {
         cs.nextLine();
         while (true) {
             try {
@@ -104,7 +104,7 @@ public class MessagesSearcher {
                 Date start = sdf.parse(cs.nextLine());
                 System.out.print("Enter end in formart MM.dd.yyyy HH:mm:ss: ");
                 Date end = sdf.parse(cs.nextLine());
-                System.out.println(searchByTime(cm, forLog ,start, end).toString());
+                System.out.println(forSearchByTime(cm, forLog ,start, end).toString());
                 break;
             } catch (ParseException e) {
                 System.out.println("Wrong date. Try again");

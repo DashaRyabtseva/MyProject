@@ -1,6 +1,7 @@
 package CleanCode;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Demo {
@@ -53,21 +54,23 @@ public class Demo {
                 }
                 case 6: {
                     System.out.print("Enter autor: ");
-                    System.out.println(ms.getSearcher().searchByAuthor(ms.getCM(), ms.getFW(), cs.next()).toString());
+                    System.out.println(ms.getSearcher().searchByAuthor(ms.getChatMassages(), ms.getForLog(), cs.next()).toString());
                     break;
                 }
                 case 7: {
                     System.out.print("Enter word: ");
-                    System.out.println(ms.getSearcher().searchByWord(ms.getCM(), ms.getFW(), cs.next()).toString());
+                    MessagesSearcher searcher = ms.getSearcher();
+                    ArrayList<ChatMessage> result = searcher.searchByWord(ms.getChatMassages(), ms.getForLog(), cs.next());
+                    System.out.println(result.toString());
                     break;
                 }
                 case 8: {
                     System.out.print("Enter regular ex: ");
-                    System.out.println(ms.getSearcher().searchByRegularEx(ms.getCM(), ms.getFW(), cs.next()).toString());
+                    System.out.println(ms.getSearcher().searchByRegularEx(ms.getChatMassages(), ms.getForLog(), cs.next()).toString());
                     break;
                 }
                 case 9: {
-                    ms.getSearcher().forSearchByTime(ms.getCM(), ms.getFW(), cs);
+                    ms.getSearcher().searchByTime(ms.getChatMassages(), ms.getForLog(), cs);
                     break;
                 }
                 case 10: {
@@ -80,7 +83,7 @@ public class Demo {
             }
         }
         try {
-            ms.getFW().close();
+            ms.getForLog().close();
         }
         catch (IOException e) {
             System.out.println ("Trouble with file for log");

@@ -24,25 +24,12 @@ public class MessagesContainer {
         }
     }
 
-    public MessagesContainer(ArrayList<ChatMessage> hi) {
-        cm = new ArrayList<>();
-        cm.addAll(hi.stream().collect(Collectors.toList()));
-    }
-    public ArrayList<ChatMessage> getCM () {
-        return cm;
-    }
-    public FileWriter getFW() {
+    public ArrayList<ChatMessage> getChatMassages () { return cm; }
+    public FileWriter getForLog() {
         return forLog;
     }
     public MessagesSearcher getSearcher () {
         return searcher;
-    }
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        for (ChatMessage chatMessage : cm) {
-            sb.append(chatMessage).append("\n");
-        }
-        return sb.toString();
     }
 
     public void saveHistory() {
