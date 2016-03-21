@@ -1,4 +1,5 @@
 body {
+    background-color: #66c716;
     background-image: url("P5123052.jpg");
     background-position: center;
     background-repeat: no-repeat;
@@ -7,7 +8,7 @@ body {
     margin: 0 auto;
     padding: 0;
 }
-.title {
+#title {
     display: inline;
     position: relative;
     left: 5%;
@@ -17,28 +18,28 @@ body {
 #server_problem {
     color: #fa7381;
 }
+
+#enter_name {
+    margin: 0 auto;
+    width: 50%;
+    height: 10%;
+    padding-bottom: 5px;
+}
+#enter_name_text {
+    font-size: 120%;
+    font-family: "Century Gothic";
+    color: white;
+}
+#enter_name_box {
+    font-size: 120%;
+}
 #history_box_and_footer {
     margin: 0 auto;
     min-width: 50%;
     max-width: 60%;
     height: 100%;
 }
-.enter_name {
-    margin: 0 auto;
-    width: 50%;
-    height: 10%;
-    padding-bottom: 5px;
-}
-.enter_name_text {
-    font-size: 120%;
-    font-family: "Century Gothic";
-    color: white;
-}
-.enter_name_text_box {
-    font-size: 120%;
-}
-
-.history {
+#history {
    /* min-width: 50%;
     max-width: 60%;*/
     width: 100%;
@@ -49,7 +50,7 @@ body {
     vertical-align: top;
     border-width: 3px;
     background-color: hsla(0,100%,100%,0.7);
-    overflow-y: scroll;
+    overflow: auto;
 }
 .button {
     background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#66c716),to(#b8ff2d));
@@ -73,10 +74,9 @@ body {
 }
 .all_user_message {
     float: left;
-    clear:right;
+    clear: both;
 }
 .username {
-
     color: #2d5910;
     vertical-align: top;
     margin-left: 8px;
@@ -97,16 +97,17 @@ body {
 .text_message {
     margin: 8px 5px 10px 5px;
 }
-.time_message {
+/*.time_message {
     vertical-align: top;
-}
-.delete_message {
+}*/
+/*.delete_icon {
     width: 5%;
 }
-.edit_message {
+.edit_icon {
     height: 5px;
-}
+}*/
 .server_message {
+    font-family: "Century Gothic";
     color: #0c76be;
 }
 
@@ -120,7 +121,7 @@ body {
     width: 100%;
     height: 45px;
     padding: 5px 10px 5px 10px;
-    overflow-y: scroll;
+    overflow-y: auto;
    /* margin-right: 20px;*/
     font-family: Tahoma;
 }
