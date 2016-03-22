@@ -46,11 +46,13 @@ function delegateEvent(evtObj) {
 
 function onAddButtonClick() {
     var textNewMessage = document.getElementById('new_message');
-    var message = newMessage(usernameNow,textNewMessage.value);
-    messageList.push(message);
-    textNewMessage.value = '';
-    render([message]); // отрисовка
-    saveMessages(messageList);
+    if (textNewMessage.value) {
+        var message = newMessage(usernameNow, textNewMessage.value);
+        messageList.push(message);
+        textNewMessage.value = '';
+        render([message]); // отрисовка
+        saveMessages(messageList);
+    }
 }
 
 function onDeleteIconClick(element) {
@@ -64,6 +66,7 @@ function onDeleteIconClick(element) {
 
 function onEditIconClick(element) {
     element.insertAdjacentHTML('beforeend', '<div id="for_edit"><textarea></textarea> <span id="button_edit_sent"><button class="button" >Sent</button></span> </div>');
+    document.getElementById('history').scrollTop = document.getElementById('history').scrollHeight;
     var boxForEdit = element.lastElementChild;
     boxForEdit.firstElementChild.innerHTML = element.firstElementChild.innerHTML;
     boxForEdit.lastElementChild.firstElementChild.addEventListener('click', function() {
@@ -75,11 +78,13 @@ function onEditButtonSent(element) {
     var boxForEdit = element.lastElementChild;
     var index = indexByElement(element.parentElement, messageList);
     var editedMessage = messageList[index];
-    editedMessage.indEdit = true;
-    editedMessage.textMessage = element.lastElementChild/*boxForEdit*/.firstElementChild.value;
-    renderMessageState(element.parentElement, editedMessage);
-    boxForEdit.parentElement.removeChild(boxForEdit);
-    saveMessages(messageList);
+    if(element.lastElementChild.firstElementChild.value) {
+        editedMessage.indEdit = true;
+        editedMessage.textMessage = element.lastElementChild/*boxForEdit*/.firstElementChild.value;
+        renderMessageState(element.parentElement, editedMessage);
+        boxForEdit.parentElement.removeChild(boxForEdit);
+        saveMessages(messageList);
+    }
 }
 
 function onEnterNameButtonClick (element) {
