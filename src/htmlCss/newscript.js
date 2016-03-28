@@ -1,7 +1,3 @@
-/**
- * Created by Dasha on 17.03.2016.
- */
-
 function newMessage (username, text, edit, del) {
     return {
         username: username,
@@ -61,11 +57,13 @@ function onDeleteIconClick(element) {
     deletedMessage.indDelete = true;
     deletedMessage.textMessage = '';
     renderMessageState(element.parentElement, messageList[index]);
+    if (element.childNodes.length == 5)
+        element.lastElementChild.remove();
     saveMessages(messageList);
 }
 
 function onEditIconClick(element) {
-    element.insertAdjacentHTML('beforeend', '<div id="for_edit"><textarea></textarea> <span id="button_edit_sent"><button class="button" >Sent</button></span> </div>');
+    element.insertAdjacentHTML('beforeend', '<div id="for_edit"><textarea id="text_edit_sent"></textarea> <span id="button_edit_sent"><button class="button" >Sent</button></span> </div>');
     document.getElementById('history').scrollTop = document.getElementById('history').scrollHeight;
     var boxForEdit = element.lastElementChild;
     boxForEdit.firstElementChild.innerHTML = element.firstElementChild.innerHTML;

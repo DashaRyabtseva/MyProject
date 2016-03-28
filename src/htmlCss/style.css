@@ -111,6 +111,10 @@ body {
     color: #0c76be;
 }
 
+#text_edit_sent {
+    resize: none;
+}
+
 #box_new_message {
     margin: 0 auto;
     width: 100%;
