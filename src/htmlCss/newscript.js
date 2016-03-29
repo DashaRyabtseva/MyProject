@@ -22,10 +22,9 @@ function uniqueId() {
 function run() {
     var appContainer = document.getElementsByClassName('todos')[0];
     appContainer.addEventListener('click', delegateEvent);
-    messageList = loadMessages() || [newMessage('Dasha', 'hello')];
+    messageList = loadMessages() || [newMessage('Dasha')];
     usernameNow = messageList[messageList.length - 1].username;
     document.getElementById('enter_name_box').setAttribute('placeholder', usernameNow);
-    messageList.pop();
     render(messageList);
 }
 
@@ -44,9 +43,11 @@ function onAddButtonClick() {
     var textNewMessage = document.getElementById('new_message');
     if (textNewMessage.value) {
         var message = newMessage(usernameNow, textNewMessage.value);
+        var imaginaryUsername = messageList.pop();
         messageList.push(message);
+        messageList.push(imaginaryUsername);
         textNewMessage.value = '';
-        render([message]); // отрисовка
+        renderMessage(message); // отрисовка
         saveMessages(messageList);
     }
 }
@@ -57,15 +58,16 @@ function onDeleteIconClick(element) {
     deletedMessage.indDelete = true;
     deletedMessage.textMessage = '';
     renderMessageState(element.parentElement, messageList[index]);
-    if (element.childNodes.length == 5)
-        element.lastElementChild.remove();
+    if (element.childNodes.length == 6  && element.lastElementChild.style.display == 'block')
+        element.lastElementChild.style.display = 'none';
     saveMessages(messageList);
 }
 
 function onEditIconClick(element) {
-    element.insertAdjacentHTML('beforeend', '<div id="for_edit"><textarea id="text_edit_sent"></textarea> <span id="button_edit_sent"><button class="button" >Sent</button></span> </div>');
-    document.getElementById('history').scrollTop = document.getElementById('history').scrollHeight;
     var boxForEdit = element.lastElementChild;
+    if (boxForEdit.style.display == 'block')
+        return;
+    boxForEdit.style.display = 'block';
     boxForEdit.firstElementChild.innerHTML = element.firstElementChild.innerHTML;
     boxForEdit.lastElementChild.firstElementChild.addEventListener('click', function() {
         onEditButtonSent(element);
@@ -78,9 +80,9 @@ function onEditButtonSent(element) {
     var editedMessage = messageList[index];
     if(element.lastElementChild.firstElementChild.value) {
         editedMessage.indEdit = true;
-        editedMessage.textMessage = element.lastElementChild/*boxForEdit*/.firstElementChild.value;
+        editedMessage.textMessage = element.lastElementChild.firstElementChild.value;
         renderMessageState(element.parentElement, editedMessage);
-        boxForEdit.parentElement.removeChild(boxForEdit);
+        boxForEdit.style.display = 'none';
         saveMessages(messageList);
     }
 }
@@ -102,7 +104,7 @@ function indexByElement(element, messages){
 }
 
 function render(messages) { //общая отрисовочка!
-    for (var i = 0; i < messages.length; i++) {
+    for (var i = 0; i < messages.length - 1; i++) {
         renderMessage(messages[i]);
     }
 }
@@ -150,7 +152,7 @@ function saveMessages(listToSave) {
         alert('localStorage is not accessible');
         return;
     }
-    listToSave.push(newMessage(usernameNow));
+    listToSave[listToSave.length - 1].username = usernameNow;
     localStorage.setItem ("TODOs messagesList", JSON.stringify(listToSave));
 }
 
