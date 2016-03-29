@@ -1,0 +1,18 @@
+POST http://localhost:999/chat?token=TN51EN HTTP/1.1
+Host: localhost:999
+Connection: keep-alive
+Cache-Control: max-age=0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+User-Agent: Composer
+Accept-Encoding: gzip, deflate, sdch
+Accept-Language: ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4
+Content-Length: 21
+
+{"message":"much it"}
+HTTP/1.1 200 OK
+Date: Tue, 29 Mar 2016 17:52:57 GMT
+Transfer-encoding: chunked
+Access-control-allow-origin: *
+
+0
+
