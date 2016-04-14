@@ -7,7 +7,7 @@
     <link rel="icon" href="ico.ico" type="image/x-icon">
     <script src="newscript.js"></script>
 </head>
-<body class="todos" onload="run();">
+<body class="bugchat" onload="run();">
     <header id="title">
         <span>
             <h1 > BugChat</h1>
@@ -24,18 +24,23 @@
 
 <div id="history_box_and_footer">
     <div id="history">
-        <div class="all_my_message" style="display:none" id="message_template" data-task-id="идентификатор">
+        <div class="one_message" style="display:none" id="message_template" data-task-id="идентификатор">
             <div class="username"></div>
             <div class="my_message">
                 <div class="text_message"></div>
                 <span>
-                    <a href="#" ><img src="edit.ico" alt="edit" class="edit_icon"/></a>
-                    <a href="#" ><img src="delete.ico" alt="del" class="delete_icon"/></a>
+                    <span class="icons" style="display: none">
+                        <a href="#" ><img src="edit.ico" alt="edit" class="edit_icon"/></a>
+                        <a href="#" ><img src="delete.ico" alt="del" class="delete_icon"/></a>
+                    </span>
                     <span class="server_message"></span>
                 </span>
                 <div id="for_edit" style="display: none">
                     <textarea id="text_edit_sent"></textarea>
-                    <span id="button_edit_sent"><button class="button" >Sent</button></span>
+                    <span id="button_edit_sent">
+                        <button class="button" >Sent</button>
+                        <button class="button" >Cancel</button>
+                    </span>
                 </div>
             </div>
         </div>
