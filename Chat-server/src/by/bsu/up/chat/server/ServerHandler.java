@@ -77,8 +77,7 @@ public class ServerHandler implements HttpHandler {
         try {
             int index = MessageHelper.parseToken(token); // из токена вида ФИ99ШТ уберем буквы, а число декодируем
             if (index > messageStorage.size()) { // если индекс не соответствует размеру
-                return Response.badRequest(
-                        String.format("Incorrect token in request: %s. Server does not have so many messages", token));
+                return Response.badRequest(String.format("Incorrect token in request: %s. Server does not have so many messages", token));
             }
             Portion portion = new Portion(index);
             List<Message> messages = messageStorage.getPortion(portion); // сообщения от названного токена до последнего
@@ -105,7 +104,8 @@ public class ServerHandler implements HttpHandler {
         try {
             Message message = MessageHelper.getClientMessageForUpdate(httpExchange.getRequestBody());
             logger.info(String.format("Edited message from user: %s", message));
-            messageStorage.updateMessage(message);
+            //messageStorage.updateMessage(message);
+            messageStorage.addMessage(message);
             return Response.ok();
         } catch (ParseException e) {
             logger.error("Could not parse message.", e);
@@ -118,7 +118,8 @@ public class ServerHandler implements HttpHandler {
         try {
             Message message = MessageHelper.getClientMessageForRemove(httpExchange.getRequestBody());
             logger.info(String.format("Removed message from user: %s", message));
-            messageStorage.removeMessage(message.getId());
+           // messageStorage.removeMessage(message.getId());
+            messageStorage.addMessage(message);
             /*тут будет формирование ответа*/
             return Response.ok();
         } catch (ParseException e) {

@@ -6,8 +6,11 @@ public class Message implements Serializable {
 
     private String id;
     private String author;
-    private long timestamp;
+    private String idAuthor;
+    private long timeStamp;
     private String text;
+    private boolean indEdit;
+    private boolean indDelete;
 
     public String getId() {
         return id;
@@ -25,12 +28,12 @@ public class Message implements Serializable {
         this.author = author;
     }
 
-    public long getTimestamp() {
-        return timestamp;
+    public long getTimeStamp() {
+        return timeStamp;
     }
 
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+    public void setTimeStamp(long timestamp) {
+        this.timeStamp = timestamp;
     }
 
     public String getText() {
@@ -41,13 +44,28 @@ public class Message implements Serializable {
         this.text = text;
     }
 
+    public String getIdAuthor() { return idAuthor; }
+
+    public void setIdAuthor(String idAuthor) { this.idAuthor = idAuthor; }
+
+    public boolean isIndEdit() { return indEdit; }
+
+    public void setIndEdit(boolean indEdit) { this.indEdit = indEdit; }
+
+    public boolean isIndDelete() { return indDelete; }
+
+    public void setIndDelete(boolean indDelete) { this.indDelete = indDelete; }
+
     @Override
     public String toString() {
         return "Message{" +
                 "id='" + id + '\'' +
                 ", author='" + author + '\'' +
-                ", timestamp=" + timestamp +
+                ", idAuthor='" + idAuthor + '\'' +
+                ", timestamp=" + timeStamp +
                 ", text='" + text + '\'' +
+                ", indEdit=" + indEdit +
+                ", indDelete=" + indDelete +
                 '}';
     }
 }

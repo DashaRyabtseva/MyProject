@@ -37,7 +37,21 @@ public class InMemoryMessageStorage implements MessageStorage {
             throw new IllegalArgumentException(String.format("Porting last index %d can not be less then start index %d", to, from));
         }
         to = Math.max(to, messages.size()); // конечный становится просто индексом последнего сообщения
-        return messages.subList(from, to); // вернем все нужные сообщения
+        List<Message> temp =  messages.subList(from, to); // вернем все нужные сообщения
+        List<Message> result = new ArrayList<>();
+        for (int i = 0; i < temp.size(); ++i) {
+            boolean find = false;
+            for (int j = 0; j < result.size(); ++j) {
+                if (temp.get(i).getId() == result.get(j).getId()){
+                    result.add(j, temp.get(j));
+                    find = true;
+                    break;
+                }
+            }
+            if(!find)
+                result.add(temp.get(i));
+        }
+        return result;
     }
 
     @Override
@@ -100,7 +114,11 @@ public class InMemoryMessageStorage implements MessageStorage {
                 message.setText((String)jsonObject.get(Constants.Message.FIELD_TEXT));
                 message.setAuthor((String)jsonObject.get(Constants.Message.FIELD_AUTHOR));
                 message.setId((String)jsonObject.get(Constants.Message.FIELD_ID));
-                message.setTimestamp((Long)jsonObject.get(Constants.Message.FIELD_TIMESTAMP));
+                message.setTimeStamp((Long)jsonObject.get(Constants.Message.FIELD_TIMESTAMP));
+                message.setIdAuthor((String) jsonObject.get(Constants.Message.FIELD_ID_AUTHOR));
+                message.setIndEdit((Boolean) jsonObject.get(Constants.Message.FIELD_EDIT));
+                message.setIndDelete((Boolean) jsonObject.get(Constants.Message.FIELD_DELETE));
+
                 messages.add(message);
             }
         }

@@ -124,7 +124,7 @@ public class MessageHelper {
         Message message = new Message();
         message.setId(id);
         message.setAuthor(author);
-        message.setTimestamp(timestamp);
+        message.setTimeStamp(timestamp);
         message.setText(text);
         return message;
     }
@@ -170,7 +170,7 @@ public class MessageHelper {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put(Constants.Message.FIELD_ID, message.getId());
         jsonObject.put(Constants.Message.FIELD_AUTHOR, message.getAuthor());
-        jsonObject.put(Constants.Message.FIELD_TIMESTAMP, message.getTimestamp());
+        jsonObject.put(Constants.Message.FIELD_TIMESTAMP, message.getTimeStamp());
         jsonObject.put(Constants.Message.FIELD_TEXT, message.getText());
         return jsonObject;
     }
