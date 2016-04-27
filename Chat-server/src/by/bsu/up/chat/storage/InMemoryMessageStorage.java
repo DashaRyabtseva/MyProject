@@ -115,7 +115,7 @@ public class InMemoryMessageStorage implements MessageStorage {
                 message.setAuthor((String)jsonObject.get(Constants.Message.FIELD_AUTHOR));
                 message.setId((String)jsonObject.get(Constants.Message.FIELD_ID));
                 message.setTimeStamp((Long)jsonObject.get(Constants.Message.FIELD_TIMESTAMP));
-                message.setIdAuthor((String) jsonObject.get(Constants.Message.FIELD_ID_AUTHOR));
+                //message.setIdAuthor((String) jsonObject.get(Constants.Message.FIELD_ID_AUTHOR));
                 message.setIndEdit((Boolean) jsonObject.get(Constants.Message.FIELD_EDIT));
                 message.setIndDelete((Boolean) jsonObject.get(Constants.Message.FIELD_DELETE));
 

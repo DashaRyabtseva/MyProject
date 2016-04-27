@@ -75,7 +75,7 @@ public class ServerHandler implements HttpHandler {
             return Response.badRequest("Token query parameter is required");
         }
         try {
-            int index = MessageHelper.parseToken(token); // из токена вида ФИ99ШТ уберем буквы, а число декодируем
+            int index = MessageHelper.parseToken(token); // из токена вида TN11EN уберем буквы, а число декодируем
             if (index > messageStorage.size()) { // если индекс не соответствует размеру
                 return Response.badRequest(String.format("Incorrect token in request: %s. Server does not have so many messages", token));
             }

@@ -6,7 +6,7 @@ public class Message implements Serializable {
 
     private String id;
     private String author;
-    private String idAuthor;
+    //private String idAuthor;
     private long timeStamp;
     private String text;
     private boolean indEdit;
@@ -44,9 +44,9 @@ public class Message implements Serializable {
         this.text = text;
     }
 
-    public String getIdAuthor() { return idAuthor; }
+    //public String getIdAuthor() { return idAuthor; }
 
-    public void setIdAuthor(String idAuthor) { this.idAuthor = idAuthor; }
+    //public void setIdAuthor(String idAuthor) { this.idAuthor = idAuthor; }
 
     public boolean isIndEdit() { return indEdit; }
 
@@ -61,7 +61,6 @@ public class Message implements Serializable {
         return "Message{" +
                 "id='" + id + '\'' +
                 ", author='" + author + '\'' +
-                ", idAuthor='" + idAuthor + '\'' +
                 ", timestamp=" + timeStamp +
                 ", text='" + text + '\'' +
                 ", indEdit=" + indEdit +
