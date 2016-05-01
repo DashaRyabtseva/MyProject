@@ -28,9 +28,7 @@ public class Message implements Serializable {
         this.author = author;
     }
 
-    public long getTimeStamp() {
-        return timeStamp;
-    }
+    public long getTimeStamp() { return timeStamp; }
 
     public void setTimeStamp(long timestamp) {
         this.timeStamp = timestamp;
@@ -61,7 +59,7 @@ public class Message implements Serializable {
         return "Message{" +
                 "id='" + id + '\'' +
                 ", author='" + author + '\'' +
-                ", timestamp=" + timeStamp +
+                ", timeStamp=" + timeStamp +
                 ", text='" + text + '\'' +
                 ", indEdit=" + indEdit +
                 ", indDelete=" + indDelete +

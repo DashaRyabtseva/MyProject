@@ -12,6 +12,7 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class InMemoryMessageStorage implements MessageStorage {
 
@@ -37,18 +38,18 @@ public class InMemoryMessageStorage implements MessageStorage {
             throw new IllegalArgumentException(String.format("Porting last index %d can not be less then start index %d", to, from));
         }
         to = Math.max(to, messages.size()); // конечный становится просто индексом последнего сообщения
-        List<Message> temp =  messages.subList(from, to); // вернем все нужные сообщения
+        List<Message> temp = messages.subList(from, to); // вернем все нужные сообщения
         List<Message> result = new ArrayList<>();
         for (int i = 0; i < temp.size(); ++i) {
             boolean find = false;
             for (int j = 0; j < result.size(); ++j) {
-                if (temp.get(i).getId() == result.get(j).getId()){
+                if (temp.get(i).getId() == result.get(j).getId()) {
                     result.add(j, temp.get(j));
                     find = true;
                     break;
                 }
             }
-            if(!find)
+            if (!find)
                 result.add(temp.get(i));
         }
         return result;
@@ -78,7 +79,7 @@ public class InMemoryMessageStorage implements MessageStorage {
     @Override
     public synchronized boolean removeMessage(String messageId) {
         for (int i = 0; i < size(); ++i) {
-            if( messages.get(i).getId().equals(messageId)) {
+            if (messages.get(i).getId().equals(messageId)) {
                 messages.remove(i);
                 saveHistory();
                 return true;
@@ -105,24 +106,28 @@ public class InMemoryMessageStorage implements MessageStorage {
     }
 
     private void loadHistory() {
-        try(BufferedReader reader = new BufferedReader(new StringReader(DEFAULT_PERSISTENCE_FILE))) {
-            String jsonArrayString = reader.readLine();
+        /*try(BufferedReader reader = new BufferedReader(new StringReader(DEFAULT_PERSISTENCE_FILE))) {*/
+        File file = new File(DEFAULT_PERSISTENCE_FILE);
+        Scanner sc = null;
+        try {
+            sc = new Scanner(new FileInputStream(file));
+            String jsonArrayString = sc.nextLine();
             JSONArray jsonArray = (JSONArray) MessageHelper.getJsonParser().parse(jsonArrayString);
-            for (int i = 0; i < jsonArray.size(); i ++) {
+            for (int i = 0; i < jsonArray.size(); i++) {
                 Message message = new Message();
-                JSONObject jsonObject = (JSONObject)jsonArray.get(i);
-                message.setText((String)jsonObject.get(Constants.Message.FIELD_TEXT));
-                message.setAuthor((String)jsonObject.get(Constants.Message.FIELD_AUTHOR));
-                message.setId((String)jsonObject.get(Constants.Message.FIELD_ID));
-                message.setTimeStamp((Long)jsonObject.get(Constants.Message.FIELD_TIMESTAMP));
-                //message.setIdAuthor((String) jsonObject.get(Constants.Message.FIELD_ID_AUTHOR));
+                JSONObject jsonObject = (JSONObject) jsonArray.get(i);
+                message.setText((String) jsonObject.get(Constants.Message.FIELD_TEXT));
+                message.setAuthor((String) jsonObject.get(Constants.Message.FIELD_AUTHOR));
+                message.setId((String) jsonObject.get(Constants.Message.FIELD_ID));
+                message.setTimeStamp((Long) jsonObject.get(Constants.Message.FIELD_TIMESTAMP));
                 message.setIndEdit((Boolean) jsonObject.get(Constants.Message.FIELD_EDIT));
                 message.setIndDelete((Boolean) jsonObject.get(Constants.Message.FIELD_DELETE));
-
                 messages.add(message);
             }
-        }
+    }
+        catch (FileNotFoundException e) {}
         catch (IOException e) {}
         catch (ParseException e) {}
     }
+
 }

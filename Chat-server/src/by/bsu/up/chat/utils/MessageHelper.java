@@ -121,14 +121,19 @@ public class MessageHelper {
         String author = ((String) jsonObject.get(Constants.Message.FIELD_AUTHOR));
         long timestamp = ((long) jsonObject.get(Constants.Message.FIELD_TIMESTAMP));
         String text = ((String) jsonObject.get(Constants.Message.FIELD_TEXT));
+        boolean indEdit = ((boolean) jsonObject.get(Constants.Message.FIELD_EDIT));
+        boolean indDelete = ((boolean) jsonObject.get(Constants.Message.FIELD_DELETE));
+
         Message message = new Message();
         message.setId(id);
         message.setAuthor(author);
         message.setTimeStamp(timestamp);
         message.setText(text);
+        message.setIndDelete(indDelete);
+        message.setIndEdit(indEdit);
         return message;
     }
-
+/*
     public static Message getClientMessageForUpdate(InputStream inputStream) throws ParseException {
         JSONObject jsonObject = stringToJsonObject(inputStreamToString(inputStream));
         String id = ((String) jsonObject.get(Constants.Message.FIELD_ID));
@@ -146,7 +151,7 @@ public class MessageHelper {
         message.setId(id);
         return message;
     }
-
+*/
     public static JSONObject stringToJsonObject(String json) throws ParseException {
         // The same as (JSONObject) jsonParser.parse(json.trim());
         return JSONObject.class.cast(jsonParser.parse(json.trim()));
@@ -172,6 +177,9 @@ public class MessageHelper {
         jsonObject.put(Constants.Message.FIELD_AUTHOR, message.getAuthor());
         jsonObject.put(Constants.Message.FIELD_TIMESTAMP, message.getTimeStamp());
         jsonObject.put(Constants.Message.FIELD_TEXT, message.getText());
+        jsonObject.put(Constants.Message.FIELD_EDIT, message.isIndEdit());
+        jsonObject.put(Constants.Message.FIELD_DELETE, message.isIndDelete());
+
         return jsonObject;
     }
 }

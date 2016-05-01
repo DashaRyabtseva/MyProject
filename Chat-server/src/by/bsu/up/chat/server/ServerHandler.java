@@ -102,7 +102,7 @@ public class ServerHandler implements HttpHandler {
 
     private Response doPut(HttpExchange httpExchange) {
         try {
-            Message message = MessageHelper.getClientMessageForUpdate(httpExchange.getRequestBody());
+            Message message = MessageHelper.getClientMessage(httpExchange.getRequestBody());
             logger.info(String.format("Edited message from user: %s", message));
             //messageStorage.updateMessage(message);
             messageStorage.addMessage(message);
@@ -116,7 +116,7 @@ public class ServerHandler implements HttpHandler {
 
     private Response doDelete(HttpExchange httpExchange) {
         try {
-            Message message = MessageHelper.getClientMessageForRemove(httpExchange.getRequestBody());
+            Message message = MessageHelper.getClientMessage(httpExchange.getRequestBody());
             logger.info(String.format("Removed message from user: %s", message));
            // messageStorage.removeMessage(message.getId());
             messageStorage.addMessage(message);
