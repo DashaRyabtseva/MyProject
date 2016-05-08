@@ -29,8 +29,10 @@ function uniqueId() {
 var Application = {
     mainUrl: 'http://localhost:999/chat',
     messageList: [],
-    usernameNow: 'Dasha',
-    token: 'TN11EN'
+    usernameNow: '',
+    token: 'TN11EN',
+    realMessages: []
+    // добавляем что-то типа realMessages - только сообщения. чтобы по ид искать для удаления и изменения. добавлять сюда в updateList
 };
 
 var isConnected = void 0;
@@ -68,9 +70,9 @@ function delegateEvent(evtObj) {
     if (evtObj.type === 'click' && evtObj.target.getAttribute('id') == 'button_sent')
         onAddButtonClick();
     if (evtObj.type === 'click' && evtObj.target.classList.contains('delete_icon'))
-        onDeleteIconClick(evtObj.target.parentElement.parentElement.parentElement.parentElement);
+        onDeleteIconClick(evtObj.target.parentElement.parentElement.parentElement.parentElement.parentElement);
     if (evtObj.type === 'click' && evtObj.target.classList.contains('edit_icon'))
-        onEditIconClick(evtObj.target.parentElement.parentElement.parentElement);
+        onEditIconClick(evtObj.target.parentElement.parentElement.parentElement.parentElement);
     if (evtObj.type === 'click' && evtObj.target.getAttribute('id') == 'enter_name_button')
         onEnterNameButtonClick(evtObj.target.parentElement);
 }
@@ -84,7 +86,8 @@ function onEnterNameButtonClick(element) {//логинишься типа
     Application.usernameNow = newNameBox.value;
     newNameBox.setAttribute('placeholder', Application.usernameNow);
     newNameBox.value = '';
-    whileConnected();
+    var items = document.getElementById('history');
+    updateListAfterChangeName(items);
 }
 
 function onAddButtonClick() {
@@ -98,7 +101,7 @@ function onAddButtonClick() {
 }
 
 function onDeleteIconClick(element) { //tag one_message
-    var index = indexByElement(element, Application.messageList);
+    var index = indexByElement(element, Application.realMessages);
     var id = idFromElement(element);
     var boxForEdit = element.lastElementChild.lastElementChild;
     deleteMessage(id, function() {
@@ -145,25 +148,27 @@ function loadMessages(done, doneError) {
     var url = Application.mainUrl + '?token=' + Application.token;
     ajax('GET', url, null, function (responseText) {
         var response = JSON.parse(responseText);
-        done(response);
+        Application.token = response.token;
+        Application.messageList = response.messages;
+        done(Application);
     }, doneError);
 }
 
 
 function deleteMessage(id, done) {
-    var index = indexById(Application.messageList, id);
-    var tempMessage = Application.messageList[index];
+    var index = indexById(Application.realMessages, id);
+    var tempMessage = Application.realMessages[index];
     var messageToDelete = copyMessage(tempMessage);
-    messageToDelete.textMessage = '';
+    messageToDelete.text = '';
     messageToDelete.indDelete = true;
     ajax('DELETE', Application.mainUrl, JSON.stringify(messageToDelete), done);
 }
 
 function editMessage(id, text, done) {
-    var index = indexById(Application.messageList, id);
-    var tempMessage = Application.messageList[index];
+    var index = indexById(Application.realMessages, id);
+    var tempMessage = Application.realMessages[index];
     var messageToEdit = copyMessage(tempMessage);
-    messageToEdit.textMessage = text;
+    messageToEdit.text = text;
     messageToEdit.indEdit = true;
     ajax('PUT', Application.mainUrl, JSON.stringify(messageToEdit),done);
 }
@@ -178,14 +183,51 @@ function indexByElement(element, messages) {
 
 function render(app) { //общая отрисовочка!
     var items = document.getElementById('history');
-    var messagesMap = app.messageList.reduce(function (accumulator, message) {
-        accumulator[message.id] = message;
-        return accumulator;
-    }, {});
-    updateList(items, messagesMap);
-    appendToList(items, app.messageList, messagesMap);
-    document.getElementById('history').scrollTop = document.getElementById('history').scrollHeight;
+    if (app.messageList.length != 0) {
+        var messagesMap = app.messageList.reduce(function (accumulator, message) {
+            accumulator[message.id] = message;
+            return accumulator;
+        }, {});
+        updateList(items, messagesMap);
+        appendToList(items, app.messageList, messagesMap);
+        document.getElementById('history').scrollTop = document.getElementById('history').scrollHeight;
+    }
 }
+
+function updateListAfterChangeName (element) {
+    if (Application.realMessages.length != 0) {
+        var messagesMap = Application.realMessages.reduce(function (accumulator, message) {
+            accumulator[message.id] = message;
+            return accumulator;
+        }, {});
+    }
+    var children = element.children;
+    for (var i = 0; i < children.length; i++) {
+        var child = children[i];
+        if (child.style.display != 'none') { //не рисуем шаблон
+            var id = child.attributes['data-task-id'].value;
+            var item = messagesMap[id];
+            if (item != undefined) {
+                var userName = child.firstElementChild;
+                var myMessage = userName.nextElementSibling;
+                var textMessage = myMessage.firstElementChild;
+                var icons = textMessage.nextElementSibling.firstElementChild;
+                if (item.author == Application.usernameNow) {
+                    if (item.indDelete != true)
+                        icons.style.display = 'block';
+                    myMessage.setAttribute('class', 'my_message css_color_my');
+                    child.setAttribute('class', 'one_message css_my')
+                }
+                else {
+                    myMessage.setAttribute('class', 'my_message css_color_not_my');
+                    child.setAttribute('class', 'one_message css_not_my')
+                }
+                document.getElementById('history').scrollTop = document.getElementById('history').scrollHeight;
+            }
+        }
+    }
+}
+
 
 function updateList(element, itemMap) { //перерисовываем что есть
     var children = element.children;
@@ -194,8 +236,11 @@ function updateList(element, itemMap) { //перерисовываем что е
         if (child.style.display != 'none') { //не рисуем шаблон
             var id = child.attributes['data-task-id'].value;
             var item = itemMap[id];
-            renderMessageState(child, item, Application.usernameNow);
-            itemMap[id] = null;
+
+            if (item != undefined) {
+                renderMessageState(child, item, Application.usernameNow);
+                itemMap[id] = null;
+            }
         }
     }
 }
@@ -207,6 +252,7 @@ function appendToList(element, items, itemMap) { //добавояем новые
             continue;
         itemMap[item.id] = null;
         var child = elementFromTemplate();
+        Application.realMessages.push(item);
         renderMessageState(child, item, Application.usernameNow);
         element.appendChild(child);
     }
@@ -234,10 +280,10 @@ function renderMessageState(element, message, username) { //элемент - о�
     if (message.indDelete) {
         status.innerHTML = 'Deteled';
         textMessage.style.display = 'none';
-        status.style.display = 'none'; //невидимые иконки
+        icons.style.display = 'none'; //невидимые иконки
     }
     else
-        textMessage.innerHTML = message.textMessage; //текст, если сообщение не удалено
+        textMessage.innerHTML = message.text; //текст, если сообщение не удалено
     element.setAttribute('data-task-id', message.id);
     element.style.display = 'block'; //дорисовали и делаем элемент видимым
     document.getElementById('history').scrollTop = document.getElementById('history').scrollHeight;

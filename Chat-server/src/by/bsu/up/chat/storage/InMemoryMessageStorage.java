@@ -43,8 +43,11 @@ public class InMemoryMessageStorage implements MessageStorage {
         for (int i = 0; i < temp.size(); ++i) {
             boolean find = false;
             for (int j = 0; j < result.size(); ++j) {
-                if (temp.get(i).getId() == result.get(j).getId()) {
-                    result.add(j, temp.get(j));
+                Message JJ = result.get(j);
+                Message II = temp.get(i);
+                if (II.getId().equals( JJ.getId())) {
+                    result.remove(JJ);
+                    result.add(II);
                     find = true;
                     break;
                 }
@@ -111,7 +114,12 @@ public class InMemoryMessageStorage implements MessageStorage {
         Scanner sc = null;
         try {
             sc = new Scanner(new FileInputStream(file));
+        }
+        catch (IOException e) {}
+        if (sc.hasNextLine()) {
             String jsonArrayString = sc.nextLine();
+
+        try {
             JSONArray jsonArray = (JSONArray) MessageHelper.getJsonParser().parse(jsonArrayString);
             for (int i = 0; i < jsonArray.size(); i++) {
                 Message message = new Message();
@@ -124,10 +132,9 @@ public class InMemoryMessageStorage implements MessageStorage {
                 message.setIndDelete((Boolean) jsonObject.get(Constants.Message.FIELD_DELETE));
                 messages.add(message);
             }
-    }
-        catch (FileNotFoundException e) {}
-        catch (IOException e) {}
+        }
         catch (ParseException e) {}
+        }
     }
 
 }
