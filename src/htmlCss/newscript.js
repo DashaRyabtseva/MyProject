@@ -115,7 +115,7 @@ function onEditIconClick(element) { // tag my_message
     if (boxForEdit.style.display == 'block')
         return;
     boxForEdit.style.display = 'block';
-    boxForEdit.firstElementChild.innerHTML = element.firstElementChild.innerHTML;
+    boxForEdit.firstElementChild.value = element.firstElementChild.innerHTML;
     boxForEdit.lastElementChild.firstElementChild.addEventListener('click', function () {
         onEditButtonSent(element);
     });
@@ -137,6 +137,7 @@ function onEditButtonSent(element) { //tag my_message
 
 function onEditButtonCancel(element) {
     var boxForEdit = element.lastElementChild;
+    boxForEdit.firstElementChild.value = '';
     boxForEdit.style.display = 'none';
 }
 
@@ -219,6 +220,7 @@ function updateListAfterChangeName (element) {
                     child.setAttribute('class', 'one_message css_my')
                 }
                 else {
+                    icons.style.display = 'none';
                     myMessage.setAttribute('class', 'my_message css_color_not_my');
                     child.setAttribute('class', 'one_message css_not_my')
                 }
