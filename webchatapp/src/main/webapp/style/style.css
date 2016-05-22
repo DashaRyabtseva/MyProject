@@ -1,0 +1,115 @@
+body {
+    background-color: #66c716;
+    background-image: url("/pic/P5123052.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: Tahoma;
+    overflow-x: hidden;
+    margin: 0 auto;
+    padding: 0;
+}
+#title {
+    display: inline;
+    position: relative;
+    left: 5%;
+    font-family: "Century Gothic";
+    color: #ffffff;
+}
+#server_problem {
+    color: #fa7381;
+}
+
+#history_box_and_footer {
+    margin: 0 auto;
+    min-width: 50%;
+    max-width: 60%;
+    height: 100%;
+}
+#history {
+    width: 100%;
+    height: 395px;
+    margin: 0 auto;
+    padding: 3% 3% 3% 3%;
+    margin-bottom: 1.5%;
+    vertical-align: top;
+    border-width: 3px;
+    background-color: hsla(0,100%,100%,0.7);
+    overflow: auto;
+}
+.button {
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#66c716),to(#b8ff2d));
+    border-width: 0px;
+    border-radius: 8px;
+    font-family: "Century Gothic";
+    color: #054609;
+    font-size: 20px;
+}
+.button:hover {
+    color: #054609;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b8ff2d), to(#66c716));
+}
+.button:active {
+    color: white;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#81af1d), to(#2d5910))
+}
+.css_my {
+    float: right;
+    clear: both;
+}
+.css_not_my {
+    float: left;
+    clear: both;
+}
+.username {
+    color: #2d5910;
+    vertical-align: top;
+    margin-left: 8px;
+    margin-bottom: 3px;
+}
+.css_color_my {
+    background-color: #b8ff2d;
+    border-radius: 7px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.css_color_not_my {
+    background-color: #81af1d;
+    border-radius: 7px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.text_message {
+    margin: 8px 5px 10px 5px;
+}
+
+.server_message {
+    font-family: "Century Gothic";
+    color: #0c76be;
+}
+
+#text_edit_sent {
+    resize: none;
+}
+
+#box_new_message {
+    margin: 0 auto;
+    width: 100%;
+    height: 50px;
+}
+#new_message {
+    resize: none;
+    width: 100%;
+    height: 45px;
+    padding: 5px 10px 5px 10px;
+    overflow-y: auto;
+    font-family: Tahoma;
+}
+
+#footer {
+    margin: 0 auto;
+    position: relative;
+    width: 100%;
+    height: 10%;
+    font-family: "Century Gothic";
+    color: #ffffff;
+}

@@ -1,0 +1,24 @@
+body {
+    background-color: #66c716;
+    background-image: url("/pic/P5123052.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Century Gothic";
+    overflow-x: hidden;
+    margin: 0 auto;
+    padding: 0;
+}
+
+#title1 {
+    display: inline;
+    position: relative;
+    left: 45%;
+    color: #fa7381;
+}
+
+#title2 {
+    display: inline;
+    position: relative;
+    left: 42%;
+    color: #ffffff;
+}

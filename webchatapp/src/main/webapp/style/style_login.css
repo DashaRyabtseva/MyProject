@@ -1,0 +1,70 @@
+body {
+    background-color: #66c716;
+    background-image: url("/pic/P5123052.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    font-family: "Century Gothic";
+    overflow-x: hidden;
+    margin: 0 auto;
+    padding: 0;
+}
+#title {
+    display: inline;
+    position: relative;
+    left: 5%;
+    color: #ffffff;
+}
+
+.error {
+    position: relative;
+    left: 5%;
+    font-size: 120%;
+    color: #fa7381;
+}
+
+#enter_name {
+    margin: 0 auto;
+    width: 50%;
+    height: 10%;
+    padding-bottom: 5px;
+}
+#enter_password {
+    margin: 0 auto;
+    width: 50%;
+    height: 10%;
+    padding-bottom: 5px;
+}
+
+#enter_name_text {
+    font-size: 120%;
+    color: white;
+}
+
+#enter_password_text {
+    font-size: 120%;
+    color: white;
+}
+#enter_name_box {
+    font-size: 120%;
+}
+
+#enter_password_box {
+    font-size: 120%;
+}
+
+.button {
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#66c716),to(#b8ff2d));
+    border-width: 0px;
+    border-radius: 8px;
+    color: #054609;
+    font-size: 20px;
+    margin-top: 7px;
+}
+.button:hover {
+    color: #054609;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#b8ff2d), to(#66c716));
+}
+.button:active {
+    color: white;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#81af1d), to(#2d5910))
+}
