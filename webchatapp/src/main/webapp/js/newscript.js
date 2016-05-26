@@ -27,7 +27,7 @@ function uniqueId() {
 }
 
 var Application = {
-    mainUrl: 'http://localhost:999/chat',
+    mainUrl: 'http://localhost:8080/chat',
     messageList: [],
     usernameNow: '',
     token: 'TN11EN',
@@ -57,6 +57,7 @@ function seconds(value) {
 function run() { //пока не залогинишься  - истории не будет))))
     var appContainer = document.getElementsByClassName('bugchat')[0];
     appContainer.addEventListener('click', delegateEvent);
+    Application.usernameNow = "Dasha";
     connect();
 }
 
@@ -162,7 +163,7 @@ function deleteMessage(id, done) {
     var messageToDelete = copyMessage(tempMessage);
     messageToDelete.text = '';
     messageToDelete.indDelete = true;
-    ajax('DELETE', Application.mainUrl, JSON.stringify(messageToDelete), done);
+    ajax('DELETE', Application.rl, JSON.stringify(messageToDelete), done);
 }
 
 function editMessage(id, text, done) {
