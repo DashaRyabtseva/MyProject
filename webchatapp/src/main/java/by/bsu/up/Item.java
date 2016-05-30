@@ -12,16 +12,9 @@ import java.util.List;
 public class Item {
     private String username;
     private String hashPassword;
+    private String id;
 
-    public Item(String s1, String s2) {
-        username = s1;
-        hashPassword = s2;
-    }
-    public Item() {}
-
-    public String getUsername() {
-        return username;
-    }
+    public String getUsername() { return username; }
 
     public String getHashPassword() {
         return hashPassword;
@@ -34,5 +27,13 @@ public class Item {
     public void setHashPassword(String hashPassword) {
         this.hashPassword = hashPassword;
     }
+
+    public String getId() { return id; }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+
 
 }

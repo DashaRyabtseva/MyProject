@@ -38,12 +38,12 @@ var Application = {
 var isConnected = void 0;
 
 function whileConnected() {
-    isConnected = setTimeout(function () {
-        loadMessages(function () {
+    isConnected = setTimeout(function() {
+        loadMessages(function() {
             render(Application);
             renderError(false);
             whileConnected();
-        }, function () {
+        }, function() {
             renderError(true);
             whileConnected();
         });
@@ -54,10 +54,9 @@ function seconds(value) {
     return Math.round(value * 1000);
 }
 
-function run() { //пока не залогинишься  - истории не будет))))
+function run() {
     var appContainer = document.getElementsByClassName('bugchat')[0];
     appContainer.addEventListener('click', delegateEvent);
-    Application.usernameNow = "Dasha";
     connect();
 }
 
@@ -82,7 +81,8 @@ function renderError(flag) {
     document.getElementById('server_problem').style.display = flag ? 'block' : 'none';
 }
 
-function onEnterNameButtonClick(element) {//логинишься типа
+function onEnterNameButtonClick(element) {
+    //логинишься типа
     var newNameBox = element.firstElementChild.nextElementSibling;
     Application.usernameNow = newNameBox.value;
     newNameBox.setAttribute('placeholder', Application.usernameNow);
@@ -95,13 +95,14 @@ function onAddButtonClick() {
     var textNewMessage = document.getElementById('new_message');
     if (textNewMessage.value) {
         var message = newMessage(Application.usernameNow, textNewMessage.value);
-        ajax('POST', Application.mainUrl, JSON.stringify(message), function () {
+        ajax('POST', Application.mainUrl, JSON.stringify(message), function() {
             textNewMessage.value = '';
         });
     }
 }
 
-function onDeleteIconClick(element) { //tag one_message
+function onDeleteIconClick(element) {
+    //tag one_message
     var index = indexByElement(element, Application.realMessages);
     var id = idFromElement(element);
     var boxForEdit = element.lastElementChild.lastElementChild;
@@ -111,24 +112,26 @@ function onDeleteIconClick(element) { //tag one_message
     });
 }
 
-function onEditIconClick(element) { // tag my_message
+function onEditIconClick(element) {
+    // tag my_message
     var boxForEdit = element.lastElementChild;
     if (boxForEdit.style.display == 'block')
         return;
     boxForEdit.style.display = 'block';
     boxForEdit.firstElementChild.innerHTML = element.firstElementChild.innerHTML;
-    boxForEdit.lastElementChild.firstElementChild.addEventListener('click', function () {
+    boxForEdit.lastElementChild.firstElementChild.addEventListener('click', function() {
         onEditButtonSent(element);
     });
-    boxForEdit.lastElementChild.lastElementChild.addEventListener('click', function () {
+    boxForEdit.lastElementChild.lastElementChild.addEventListener('click', function() {
         onEditButtonCancel(element);
     });
 }
 
-function onEditButtonSent(element) { //tag my_message
+function onEditButtonSent(element) {
+    //tag my_message
     var boxForEdit = element.lastElementChild;
     var text = boxForEdit.firstElementChild.value;
-    if (text != null) {
+    if (text != null ) {
         var id = idFromElement(element.parentElement);
         editMessage(id, text, function() {
             boxForEdit.style.display = 'none';
@@ -148,10 +151,14 @@ function idFromElement(element) {
 
 function loadMessages(done, doneError) {
     var url = Application.mainUrl + '?token=' + Application.token;
-    ajax('GET', url, null, function (responseText) {
+    ajax('GET', url, null , function(responseText) {
         var response = JSON.parse(responseText);
         Application.token = response.token;
         Application.messageList = response.messages;
+        if (Application.usernameNow == null || Application.usernameNow == '') {
+            Application.usernameNow = response.login;
+            document.getElementById("display_name").innerHTML = response.login;
+        }
         done(Application);
     }, doneError);
 }
@@ -163,7 +170,8 @@ function deleteMessage(id, done) {
     var messageToDelete = copyMessage(tempMessage);
     messageToDelete.text = '';
     messageToDelete.indDelete = true;
-    ajax('DELETE', Application.rl, JSON.stringify(messageToDelete), done);
+    // azazazazazazaz
+    ajax('DELETE', Application.mainUrl, JSON.stringify(messageToDelete), done);
 }
 
 function editMessage(id, text, done) {
@@ -172,21 +180,23 @@ function editMessage(id, text, done) {
     var messageToEdit = copyMessage(tempMessage);
     messageToEdit.text = text;
     messageToEdit.indEdit = true;
-    ajax('PUT', Application.mainUrl, JSON.stringify(messageToEdit),done);
+    ajax('PUT', Application.mainUrl, JSON.stringify(messageToEdit), done);
 }
 
 function indexByElement(element, messages) {
-    var id = element.getAttribute('data-task-id');//attributes['data-task-id'].value;
+    var id = element.getAttribute('data-task-id');
+    //attributes['data-task-id'].value;
     for (var i = 0; i < messages.length; ++i) {
         if (messages[i].id == id)
             return i;
     }
 }
 
-function render(app) { //общая отрисовочка!
+function render(app) {
+    //общая отрисовочка!
     var items = document.getElementById('history');
     if (app.messageList.length != 0) {
-        var messagesMap = app.messageList.reduce(function (accumulator, message) {
+        var messagesMap = app.messageList.reduce(function(accumulator, message) {
             accumulator[message.id] = message;
             return accumulator;
         }, {});
@@ -196,9 +206,9 @@ function render(app) { //общая отрисовочка!
     }
 }
 
-function updateListAfterChangeName (element) {
+function updateListAfterChangeName(element) {
     if (Application.realMessages.length != 0) {
-        var messagesMap = Application.realMessages.reduce(function (accumulator, message) {
+        var messagesMap = Application.realMessages.reduce(function(accumulator, message) {
             accumulator[message.id] = message;
             return accumulator;
         }, {});
@@ -206,7 +216,8 @@ function updateListAfterChangeName (element) {
     var children = element.children;
     for (var i = 0; i < children.length; i++) {
         var child = children[i];
-        if (child.style.display != 'none') { //не рисуем шаблон
+        if (child.style.display != 'none') {
+            //не рисуем шаблон
             var id = child.attributes['data-task-id'].value;
             var item = messagesMap[id];
             if (item != undefined) {
@@ -232,28 +243,31 @@ function updateListAfterChangeName (element) {
 }
 
 
-function updateList(element, itemMap) { //перерисовываем что есть
+function updateList(element, itemMap) {
+    //перерисовываем что есть
     var children = element.children;
     for (var i = 0; i < children.length; i++) {
         var child = children[i];
-        if (child.style.display != 'none') { //не рисуем шаблон
+        if (child.style.display != 'none') {
+            //не рисуем шаблон
             var id = child.attributes['data-task-id'].value;
             var item = itemMap[id];
 
             if (item != undefined) {
                 renderMessageState(child, item, Application.usernameNow);
-                itemMap[id] = null;
+                itemMap[id] = null ;
             }
         }
     }
 }
 
-function appendToList(element, items, itemMap) { //добавояем новые
+function appendToList(element, items, itemMap) {
+    //добавояем новые
     for (var i = 0; i < items.length; i++) {
         var item = items[i];
-        if (itemMap[item.id] == null)
+        if (itemMap[item.id] == null )
             continue;
-        itemMap[item.id] = null;
+        itemMap[item.id] = null ;
         var child = elementFromTemplate();
         Application.realMessages.push(item);
         renderMessageState(child, item, Application.usernameNow);
@@ -261,7 +275,8 @@ function appendToList(element, items, itemMap) { //добавояем новые
     }
 }
 
-function renderMessageState(element, message, username) { //элемент - отображение в html, message - объект из js
+function renderMessageState(element, message, username) {
+    //элемент - отображение в html, message - объект из js
     var userName = element.firstElementChild;
     var myMessage = userName.nextElementSibling;
     var textMessage = myMessage.firstElementChild;
@@ -283,12 +298,15 @@ function renderMessageState(element, message, username) { //элемент - о�
     if (message.indDelete) {
         status.innerHTML = 'Deteled';
         textMessage.style.display = 'none';
-        icons.style.display = 'none'; //невидимые иконки
+        icons.style.display = 'none';
+        //невидимые иконки
     }
     else
-        textMessage.innerHTML = message.text; //текст, если сообщение не удалено
+        textMessage.innerHTML = message.text;
+    //текст, если сообщение не удалено
     element.setAttribute('data-task-id', message.id);
-    element.style.display = 'block'; //дорисовали и делаем элемент видимым
+    element.style.display = 'block';
+    //дорисовали и делаем элемент видимым
     document.getElementById('history').scrollTop = document.getElementById('history').scrollHeight;
 }
 
@@ -298,7 +316,7 @@ function elementFromTemplate() {
 }
 
 function indexById(list, id) {
-    return list.findIndex(function (item) {
+    return list.findIndex(function(item) {
         return item.id == id;
     });
 }
@@ -307,9 +325,11 @@ function ajax(method, url, data, continueWith, continueWithError_) {
     var continueWithError = continueWithError_ || renderError;
     try {
         var xhr = new XMLHttpRequest();
-        xhr.open(method || 'GET', url, true); //сходили на сервер
+        xhr.open(method || 'GET', url, true);
+        //сходили на сервер
 
-        xhr.onload = function () { // далее обрабатываем, что получилось
+        xhr.onload = function() {
+            // далее обрабатываем, что получилось
             if (xhr.readyState !== 4)
                 return;
             if (xhr.status != 200) {
@@ -323,19 +343,22 @@ function ajax(method, url, data, continueWith, continueWithError_) {
                 return;
             }
             continueWith(xhr.responseText);
-        };
-        xhr.ontimeout = function () {
+        }
+        ;
+        xhr.ontimeout = function() {
             console.error("ontimeout");
             continueWithError();
-        };
-        xhr.onerror = function (e) {
+        }
+        ;
+        xhr.onerror = function(e) {
             console.error("onerror", e);
             continueWithError();
-        };
+        }
+        ;
         xhr.send(data);
     }
     catch (e) {
-        setTimeout(function () {
+        setTimeout(function() {
             console.error("onerror", e);
             continueWithError();
         }, 1000);

@@ -6,16 +6,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
 
 public class Hashcode {
-    /*public static void main(String[] args) {
-        try {
-            System.out.println(encryptPassword("Password"));
-            System.out.println(encryptPassword("pAssw0r6"));
-        } catch(NoSuchAlgorithmException e) {
-            System.out.println("Algorithm was not found");
-        } catch(UnsupportedEncodingException e) {
-            System.out.println("Encoding is not supported");
-        }
-    }*/
 
     public static String encryptPassword(String password) {
         try {

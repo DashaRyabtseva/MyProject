@@ -28,7 +28,7 @@
         </c>
     </c:when>
     <c:otherwise></c:otherwise>
-</c:choose>
+</c:choose >
     </h3>
 </span>
 

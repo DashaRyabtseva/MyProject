@@ -5,22 +5,21 @@
     <title>BugChat</title>
     <link rel="stylesheet" type="text/css" href="../style/style.css" />
     <link rel="icon" href="../pic/ico.ico" type="image/x-icon">
-    <script src="../js/newscript.js"></script>
+    <script src="/js/newscript.js"></script>
 </head>
 <body class="bugchat" onload="run();">
     <header id="title">
-        <span>
-            <h1 > BugChat</h1>
+        <span >
+            <h1> BugChat</h1>
             <h3 id="server_problem" style="display: none">Problem on server</h3>
+            <h3 style="display:inline;">Hello, </h3>
+            <h3 style="display:inline;" id="display_name"> </h3>
+
+            <form style="display:inline;" id="logoff" action="/logoff" method="get">
+                <button type="submit" class="button" id="logofff">Log off</button>
+            </form>
         </span>
     </header>
-
-
-    <!--form id="enter_name" onsubmit="event.preventDefault();">
-        <p id="enter_name_text">Enter a new name</p>
-        <input type="text" id="enter_name_box" placeholder=""/>
-        <button class="button" id="enter_name_button">Enter</button>
-    </form -->
 
 <div id="history_box_and_footer">
     <div id="history">

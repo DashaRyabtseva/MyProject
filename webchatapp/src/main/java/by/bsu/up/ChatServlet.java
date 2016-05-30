@@ -20,17 +20,21 @@ import java.util.List;
 
 @WebServlet(value = "/chat")
 public class ChatServlet extends HttpServlet {
-    private MessageStorage messageStorage = new InMemoryMessageStorage();
+    private MessageStorage messageStorage;
 
     @Override
+    public void init() throws ServletException {
+        String path = System.getProperty("user.home") + "/messages.srg";
+        messageStorage = new InMemoryMessageStorage(path);
+    }
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String login = (String)req.getSession().getAttribute("username");
         String token = req.getParameter("token");
-        System.out.println("hi");
-        System.out.println(token);
         int index = MessageHelper.parseToken(token); // из токена вида TN11EN уберем буквы, а число декодируем
         Portion portion = new Portion(index);
         List<Message> messages = messageStorage.getPortion(portion); // сообщения от названного токена до последнего
-        String responseBody = MessageHelper.buildServerResponseBody(messages, messageStorage.size());
+        String responseBody = MessageHelper.buildServerResponseBody(messages, messageStorage.size(), login);
         resp.getWriter().println(responseBody);
     }
 
